@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Models/Walls/Walls.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Models/Floor/Floor.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Models/Roof/Roof.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://Map Resources/Rooms/CellController.gd" type="Script" id=4]
+[ext_resource path="res://Map Resources/Enemies/Skeleton.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1 )
@@ -89,3 +90,6 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 6 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )

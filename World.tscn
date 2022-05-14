@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Map Resources/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Map/TileSet.tres" type="TileSet" id=2]
 [ext_resource path="res://default_env.tres" type="Environment" id=3]
 [ext_resource path="res://LevelGen.gd" type="Script" id=5]
 [ext_resource path="res://Map/Map.tscn" type="PackedScene" id=6]
@@ -8,6 +9,7 @@
 [node name="World" type="Spatial"]
 script = ExtResource( 5 )
 mapScene = ExtResource( 6 )
+tileSet = ExtResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 11, -5 )
