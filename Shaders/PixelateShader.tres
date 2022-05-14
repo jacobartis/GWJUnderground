@@ -1,0 +1,37 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "//Heavily sampled from Pixelate shader by aricchi https://godotshaders.com/shader/pixelate-2/
+shader_type canvas_item;
+
+uniform int pixelSize = 4;
+
+uniform bool dead = false;
+
+void fragment()
+{
+	
+	ivec2 size = textureSize(TEXTURE, 0);
+	
+	int xRes = size.x;
+	int yRes = size.y;
+	
+	float xFactor = float(xRes) / float(pixelSize);
+	float yFactor = float(yRes) / float(pixelSize);
+	
+	float grid_uv_x = round(UV.x * xFactor) / xFactor;
+	float grid_uv_y = round(UV.y * yFactor) / yFactor;
+	
+	vec4 text = texture(TEXTURE, vec2(grid_uv_x, grid_uv_y));	
+	float avg = (text.r + text.g + text.b)/3.0;
+	if (dead == true){
+		COLOR = vec4(text.r*10.0, avg, avg, 1.0);
+	}else{
+		COLOR = vec4(text.r, text.g, text.b, 1.0);
+	}
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/pixelSize = 4
+shader_param/dead = false
