@@ -18,10 +18,16 @@ func update_faces(cell_list):
 	var grid_position = Vector2(translation.x/Global.GRID_SIZE, translation.z/Global.GRID_SIZE)
 	
 	if cell_list.has(grid_position + Vector2.RIGHT):
-		eastFace.queue_free()
+		better_free(eastFace)
 	if cell_list.has(grid_position + Vector2.LEFT):
-		westFace.queue_free()
+		better_free(westFace)
 	if cell_list.has(grid_position + Vector2.DOWN):
-		southFace.queue_free()
+		better_free(southFace)
 	if cell_list.has(grid_position + Vector2.UP):
-		northFace.queue_free()
+		better_free(northFace)
+
+func better_free(node):
+	
+	if !is_instance_valid(node):
+		return
+	node.queue_free()

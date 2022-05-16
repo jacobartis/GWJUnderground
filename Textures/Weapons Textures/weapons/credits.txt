@@ -1,0 +1,18 @@
+weapons.png
+= Swords and daggers =
+* By Tuomo Untinen
+= Axes =
+* By Tuomo Untinen
+= Pick-Axe =
+* By Tuomo Untinen
+= Maces =
+* By Tuomo Untinen
+= Spears = 
+* By Tuomo Untinen
+= Rapier =
+* By Tuomo Untinen
+= Big hammers =
+* By Tuomo Untinen
+= Javelins and throwing axes =
+* By Tuomo Untinen
+

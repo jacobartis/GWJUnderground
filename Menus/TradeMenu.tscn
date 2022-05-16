@@ -1,0 +1,93 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Menus/TradeMenu.gd" type="Script" id=2]
+
+[node name="TradeMenu" type="CanvasLayer"]
+
+[node name="TradeMenuController" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+avalible_trades_path = NodePath("TradePanel/Panel/AvalibleTrades")
+description_path = NodePath("TradePanel/TradeDetails/RichTextLabel")
+confirmation_path = NodePath("TradePanel/TradeConfirmation")
+
+[node name="TradePanel" type="Panel" parent="TradeMenuController"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TradeDetails" type="Panel" parent="TradeMenuController/TradePanel"]
+self_modulate = Color( 0.937255, 0.694118, 0.270588, 1 )
+margin_left = 1090.89
+margin_top = 180.448
+margin_right = 1569.89
+margin_bottom = 792.448
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TradeMenuController/TradePanel/TradeDetails"]
+margin_left = 13.9333
+margin_top = 101.48
+margin_right = 238.933
+margin_bottom = 351.48
+rect_scale = Vector2( 2, 2 )
+text = "bruh
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TradeMenuController/TradePanel/TradeDetails"]
+margin_left = 81.9782
+margin_top = 24.3033
+margin_right = 162.978
+margin_bottom = 38.3033
+rect_scale = Vector2( 4, 4 )
+text = "Offer Details"
+
+[node name="Panel" type="Panel" parent="TradeMenuController/TradePanel"]
+self_modulate = Color( 1, 0.552941, 0.196078, 1 )
+margin_left = 437.0
+margin_top = 170.0
+margin_right = 909.0
+margin_bottom = 825.0
+
+[node name="AvalibleTrades" type="ItemList" parent="TradeMenuController/TradePanel/Panel"]
+margin_left = 19.0402
+margin_top = 69.8136
+margin_right = 453.04
+margin_bottom = 633.814
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TradeMenuController/TradePanel/Panel"]
+margin_left = 93.6138
+margin_top = 15.8668
+margin_right = 187.614
+margin_bottom = 29.8668
+rect_scale = Vector2( 3, 3 )
+text = "Avalible Offers"
+
+[node name="TradeConfirmation" type="ConfirmationDialog" parent="TradeMenuController/TradePanel"]
+margin_left = 890.12
+margin_top = 401.345
+margin_right = 1090.12
+margin_bottom = 471.345
+[connection signal="draw" from="TradeMenuController" to="TradeMenuController" method="_on_TradeMenuController_draw"]
+[connection signal="hide" from="TradeMenuController" to="TradeMenuController" method="_on_TradeMenuController_hide"]
+[connection signal="item_activated" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_activated"]
+[connection signal="item_selected" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_selected"]
+[connection signal="confirmed" from="TradeMenuController/TradePanel/TradeConfirmation" to="TradeMenuController" method="_on_TradeConfirmation_confirmed"]

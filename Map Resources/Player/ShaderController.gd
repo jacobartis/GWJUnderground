@@ -3,10 +3,22 @@ extends ViewportContainer
 const MAX_HEALTH: float = 100.0
 
 export var light2d_path: NodePath
+export var enviroment: Environment
 
 onready var pixelation = material.get_shader_param("pixelSize")
-onready var light2d: Node = get_node(light2d_path)
+onready var light2d: Light2D = get_node(light2d_path)
 
+var sight = Global.sight_range
+
+func _process(delta):
+	check_fog()
+
+func check_fog():
+	
+	if enviroment.get_fog_depth_end() == sight:
+		return
+	
+	enviroment.set_fog_depth_end(sight)
 
 func _on_Player_health_changed(new_health):
 	if new_health != 0:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Map Resources/Weapons/WeaponBase.gd" type="Script" id=1]
+[ext_resource path="res://Map Resources/Weapons/MeleeWeaponBase.gd" type="Script" id=1]
 [ext_resource path="res://Textures/GD Test Icon/icon.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]

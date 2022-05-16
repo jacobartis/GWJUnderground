@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Menus/Pause.gd" type="Script" id=1]
+[ext_resource path="res://Menus/PauseMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Menus/TradeMenu.tscn" type="PackedScene" id=3]
+
+[node name="Menus" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 1 )
+pause_path = NodePath("PauseMenu")
+trade_path = NodePath("TradeMenu")
+
+[node name="PauseMenu" parent="." instance=ExtResource( 2 )]
+
+[node name="TradeMenu" parent="." instance=ExtResource( 3 )]

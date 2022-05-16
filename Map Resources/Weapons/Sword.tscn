@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Models/Weapons/Sword/Sword.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Map Resources/Weapons/Sword.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 45, 0 ), Vector3( -90, -4.44595e-07, 0 ), Vector3( -5.08889e-14, 45, 1.03739e-06 ) ]
+}
+
+[node name="Sword" type="Spatial"]
+script = ExtResource( 2 )
+attack_speed = 0.5
+raycast_path = NodePath("RayCast")
+anim_path = NodePath("Sword/AnimationPlayer")
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -5 )
+
+[node name="Sword" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.353553, -6.40138e-09, 0.353553, 9.05292e-09, 0.5, 4.44089e-16, -0.353553, 6.40138e-09, 0.353553, 0, 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sword"]
+anims/Attack = SubResource( 1 )
