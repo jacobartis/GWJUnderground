@@ -30,6 +30,7 @@ func generate(rooms):
 	
 	#Finaly adds the exit at potentialy furthest spot
 	addRoom(avalibleRooms[avalibleRooms.find(furthest,0)][0],4)
+	addRoom(avalibleRooms[1][0],5)
 
 #Adds a room to the generation map and adds that room to current rooms
 func addRoom(currentRoom, tileId):

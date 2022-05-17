@@ -3,7 +3,6 @@
 [ext_resource path="res://Map Resources/Weapons/MeleeWeapons/MeleeWeaponBase.gd" type="Script" id=1]
 [ext_resource path="res://Textures/GD Test Icon/icon.png" type="Texture" id=2]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "Attack"
 tracks/0/type = "value"
@@ -19,7 +18,7 @@ tracks/0/keys = {
 "values": [ NodePath("..") ]
 }
 
-[node name="WeaponBase" type="Spatial"]
+[node name="MeleeWeaponBase" type="Spatial"]
 script = ExtResource( 1 )
 raycast_path = NodePath("RayCast")
 anim_path = NodePath("Sprite/AnimationPlayer")

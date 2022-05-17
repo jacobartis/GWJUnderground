@@ -35,7 +35,7 @@ var vertical_vector: Vector3
 
 var player_in_control: bool = true
 
-var health_potions: int = 1
+var health_potions: int = 0
 var mana_potions: int = 0
 
 func _input(event):
@@ -164,7 +164,6 @@ func interacting():
 		return
 	
 	var target = interact_raycast.get_collider()
-	
 	if !target.is_in_group("Interactable"):
 		return
 	

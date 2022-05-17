@@ -3,78 +3,73 @@
 [ext_resource path="res://Map Resources/Enemies/Goblin.gd" type="Script" id=3]
 [ext_resource path="res://Textures/Enemies/Golbin/goblinsword.png" type="Texture" id=4]
 
-[sub_resource type="AtlasTexture" id=1]
-flags = 7
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=2]
-flags = 7
-atlas = ExtResource( 4 )
-region = Rect2( 64, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 7
-atlas = ExtResource( 4 )
-region = Rect2( 128, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 7
-atlas = ExtResource( 4 )
-region = Rect2( 192, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=5]
-flags = 7
-atlas = ExtResource( 4 )
-region = Rect2( 256, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=6]
-flags = 7
-atlas = ExtResource( 4 )
-region = Rect2( 320, 0, 64, 64 )
-
 [sub_resource type="AtlasTexture" id=7]
-flags = 7
+flags = 23
 atlas = ExtResource( 4 )
 region = Rect2( 448, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 7
+flags = 23
 atlas = ExtResource( 4 )
 region = Rect2( 512, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
-flags = 7
+flags = 23
 atlas = ExtResource( 4 )
 region = Rect2( 576, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 7
+flags = 23
 atlas = ExtResource( 4 )
 region = Rect2( 640, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
-flags = 7
+flags = 23
 atlas = ExtResource( 4 )
 region = Rect2( 0, 256, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=12]
-flags = 7
+flags = 23
 atlas = ExtResource( 4 )
 region = Rect2( 64, 256, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=13]
-flags = 7
+flags = 23
 atlas = ExtResource( 4 )
 region = Rect2( 128, 256, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=1]
+flags = 23
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 23
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 23
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 23
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 23
+atlas = ExtResource( 4 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 23
+atlas = ExtResource( 4 )
+region = Rect2( 320, 0, 64, 64 )
+
 [sub_resource type="SpriteFrames" id=14]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": false,
 "name": "Attack",
@@ -83,6 +78,11 @@ animations = [ {
 "frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": false,
 "name": "Death",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Walk",
 "speed": 5.0
 } ]
 
@@ -95,9 +95,7 @@ radius = 6.0
 [sub_resource type="BoxShape" id=17]
 extents = Vector3( 0.5, 1, 0.25 )
 
-[node name="Goblin" type="KinematicBody" groups=[
-"Enemy",
-]]
+[node name="Goblin" type="KinematicBody" groups=["Enemy"]]
 script = ExtResource( 3 )
 anim_path = NodePath("../Goblin/Sprites")
 eyes_path = NodePath("../Goblin/Eyes")
@@ -105,6 +103,7 @@ hitbox_path = NodePath("Hitbox")
 
 [node name="Sprites" type="AnimatedSprite3D" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+shaded = true
 frames = SubResource( 14 )
 animation = "Death"
 frame = 2
@@ -124,6 +123,7 @@ shape = SubResource( 16 )
 [node name="AttackRange" type="CollisionShape" parent="AttackRangeController"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
 shape = SubResource( 17 )
+
 [connection signal="body_entered" from="DetectionController" to="." method="_on_DetectionController_body_entered"]
 [connection signal="body_exited" from="DetectionController" to="." method="_on_DetectionController_body_exited"]
 [connection signal="body_entered" from="AttackRangeController" to="." method="_on_AttackRangeController_body_entered"]

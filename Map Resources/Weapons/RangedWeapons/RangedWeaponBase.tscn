@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Map Resources/Weapons/RangedWeapons/RangedWeaponBase.gd" type="Script" id=1]
+[ext_resource path="res://Models/Weapons/Bow/Bow.tscn" type="PackedScene" id=2]
+
+[node name="RangedWeaponBase" type="Spatial"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -2.98023e-08, 0 )
+script = ExtResource( 1 )
+aim_path = NodePath("RayCast")
+anim_path = NodePath("Bow/AnimationPlayer2")
+
+[node name="Bow" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 1, 0, -0.999976, -4.37103e-08, 0.00692891, 0.00692891, 3.02873e-10, 0.999976, 0, 0.5, -0.75 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Bow"]
+root_node = NodePath("../..")
+
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( -5, 20, -100 )

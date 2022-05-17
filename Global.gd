@@ -9,6 +9,8 @@ var level: int = 1
 var loaded: bool = true
 var points: int = 0
 
+var player = null
+
 #Player stats given by trades
 var healing: int = 0
 var damage_change: int = 0
