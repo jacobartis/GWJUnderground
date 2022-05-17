@@ -24,7 +24,7 @@ var start
 func _ready():
 	generate_map()
 
-func _process(delta):
+func _process(_delta):
 	
 	if Global.need_to_generate == false:
 		return
@@ -37,7 +37,6 @@ func generate_map():
 	if !mapScene is PackedScene: return
 	var map = mapScene.instance()
 	var tileMap = map.get_tilemap()
-	var tileId: int = 0
 	var total_tiles: Array = []
 	
 	cells.clear()

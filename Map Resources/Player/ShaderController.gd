@@ -10,7 +10,7 @@ onready var light2d: Light2D = get_node(light2d_path)
 
 var sight = Global.sight_range
 
-func _process(delta):
+func _process(_delta):
 	check_fog()
 
 func check_fog():

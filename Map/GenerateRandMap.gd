@@ -17,7 +17,7 @@ func generate(rooms):
 	updateAvalible()
 	
 	#Iterates for the required number of rooms
-	for x in range(rooms):
+	for _x in range(rooms):
 		rand.randomize()
 		
 		#Sets the next type of tile

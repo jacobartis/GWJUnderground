@@ -5,7 +5,7 @@
 [ext_resource path="res://Map Resources/Player/PlayerController.gd" type="Script" id=3]
 [ext_resource path="res://Map Resources/Player/ShaderController.gd" type="Script" id=4]
 [ext_resource path="res://Textures/Light/light.png" type="Texture" id=5]
-[ext_resource path="res://Map Resources/Weapons/Sword.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Map Resources/Weapons/MeleeWeapons/Sword.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Textures/GUI/Health/Full Health.png" type="Texture" id=7]
 [ext_resource path="res://Textures/GUI/Health/No Health.png" type="Texture" id=8]
 [ext_resource path="res://Map Resources/Player/HealthDisplay.gd" type="Script" id=9]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Map Resources/Player/ManaDisplay.gd" type="Script" id=11]
 [ext_resource path="res://Textures/GUI/Mana/Mana.png" type="Texture" id=12]
 [ext_resource path="res://Textures/GUI/Mana/No Mana.png" type="Texture" id=13]
+
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5

@@ -6,7 +6,7 @@ onready var point_label: Label = get_node(points_path)
 
 var current_points = -1
 
-func _process(delta):
+func _process(_delta):
 	update_points()
 
 func update_points():

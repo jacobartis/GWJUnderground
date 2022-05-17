@@ -87,7 +87,6 @@ margin_top = 401.345
 margin_right = 1090.12
 margin_bottom = 471.345
 [connection signal="draw" from="TradeMenuController" to="TradeMenuController" method="_on_TradeMenuController_draw"]
-[connection signal="hide" from="TradeMenuController" to="TradeMenuController" method="_on_TradeMenuController_hide"]
 [connection signal="item_activated" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_activated"]
 [connection signal="item_selected" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_selected"]
 [connection signal="confirmed" from="TradeMenuController/TradePanel/TradeConfirmation" to="TradeMenuController" method="_on_TradeConfirmation_confirmed"]

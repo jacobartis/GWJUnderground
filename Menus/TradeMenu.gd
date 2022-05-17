@@ -15,14 +15,17 @@ enum type {
 
 enum {
 	ID = 0,
-	NAME = 1,
-	DESCRIPTION = 2,
-	FLOOR_REQUIREMENT = 3,
-	GAIN_TYPE = 4,
-	GAIN = 5,
-	COST_TYPE = 6,
-	COST = 7
+	TAKEN = 1,
+	NAME = 2,
+	DESCRIPTION = 3,
+	FLOOR_REQUIREMENT = 4,
+	GAIN_TYPE = 5,
+	GAIN = 6,
+	COST_TYPE = 7,
+	COST = 8
 }
+
+const PLACEHOLDER = "brother"
 
 export var avalible_trades_path: NodePath
 export var description_path: NodePath
@@ -36,7 +39,7 @@ var trades_index = null
 var avalible_trades_index = null
 
 #Trades
-var trades = [[0,"bruh","cool",2],[1,"Name","Descrip",1,2,100,3,5]]
+var trades = [[0, false,"bruh","cool",2],[1, false,"Name","Descrip",1,2,100,3,5]]
 
 #Displays the trades based on floor number
 func _ready():
@@ -45,12 +48,16 @@ func _ready():
 func update():
 	avalible_trades.clear()
 	for x in trades.size():
-		if trades[x][FLOOR_REQUIREMENT] <= Global.level:
+		if trades[x][FLOOR_REQUIREMENT] > Global.level:
+			pass
+		elif !trades[x][TAKEN] == false:
+			pass
+		else:
 			avalible_trades.add_item(str(trades[x][NAME]))
 			avalible_trades.set_item_metadata(avalible_trades.get_item_count()-1,trades[x][ID])
 
 #If an option is chosen it displays the description
-func _process(delta):
+func _process(_delta):
 	
 	if visible == false:
 		return
@@ -72,7 +79,11 @@ func set_description():
 func make_trade():
 	apply_effect(trades[trades_index][COST_TYPE], -trades[trades_index][COST])
 	apply_effect(trades[trades_index][GAIN_TYPE], trades[trades_index][GAIN])
+	trades[trades_index][TAKEN] = true
 	avalible_trades.remove_item(avalible_trades_index)
+	description.clear()
+	description.add_text(PLACEHOLDER)
+
 
 #Checks the effect type and applys that effect
 func apply_effect(effect_type, amount):
