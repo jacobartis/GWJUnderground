@@ -29,10 +29,12 @@ const PLACEHOLDER = "brother"
 export var avalible_trades_path: NodePath
 export var description_path: NodePath
 export var confirmation_path: NodePath
+export var error_path: NodePath
 
 onready var description: RichTextLabel = get_node(description_path)
 onready var avalible_trades: ItemList = get_node(avalible_trades_path)
 onready var trade_confirmation: ConfirmationDialog = get_node(confirmation_path)
+onready var trade_error: ConfirmationDialog = get_node(error_path)
 
 var trades_index = null
 var avalible_trades_index = null
@@ -123,10 +125,14 @@ func _on_AvalibleTrades_item_selected(index):
 
 #Checks if an item was double clicked and shows a confirmation box
 func _on_AvalibleTrades_item_activated(_index):
-	trade_confirmation.show()
+	if Global.trade_points > 0:
+		trade_confirmation.show()
+	else:
+		trade_error.show()
 
 #Applys the confirmed trade
 func _on_TradeConfirmation_confirmed():
+	Global.trade_points -= 1
 	make_trade()
 
 func _on_TradeMenuController_draw():

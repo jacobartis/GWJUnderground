@@ -5,7 +5,7 @@
 [ext_resource path="res://Map Resources/Player/PlayerController.gd" type="Script" id=3]
 [ext_resource path="res://Map Resources/Player/ShaderController.gd" type="Script" id=4]
 [ext_resource path="res://Textures/Light/light.png" type="Texture" id=5]
-[ext_resource path="res://Map Resources/Weapons/RangedWeapons/RangedWeaponBase.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Map Resources/Weapons/MeleeWeapons/Sword.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Textures/GUI/Health/Full Health.png" type="Texture" id=7]
 [ext_resource path="res://Textures/GUI/Health/No Health.png" type="Texture" id=8]
 [ext_resource path="res://Map Resources/Player/HealthDisplay.gd" type="Script" id=9]
@@ -17,7 +17,9 @@
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
 
-[node name="Player" type="KinematicBody" groups=["Player"]]
+[node name="Player" type="KinematicBody" groups=[
+"Player",
+]]
 script = ExtResource( 3 )
 camera_path = NodePath("ViewportContainer/Viewport/Camera")
 player_path = NodePath(".")
@@ -61,7 +63,7 @@ current = true
 [node name="Hand" type="Spatial" parent="ViewportContainer/Viewport/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.175, -0.25 )
 
-[node name="RangedWeaponBase" parent="ViewportContainer/Viewport/Camera/Hand" instance=ExtResource( 6 )]
+[node name="Sword" parent="ViewportContainer/Viewport/Camera/Hand" instance=ExtResource( 6 )]
 
 [node name="Light2D" type="Light2D" parent="ViewportContainer"]
 position = Vector2( 960.348, 539.104 )
@@ -172,8 +174,7 @@ text = "Points: "
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[connection signal="health_changed" from="." to="ViewportContainer" method="_on_Player_health_changed"]
 [connection signal="health_changed" from="." to="ViewportContainer/HealthDisplay" method="_on_Player_health_changed"]
+[connection signal="health_changed" from="." to="ViewportContainer" method="_on_Player_health_changed"]
 [connection signal="mana_changed" from="." to="ViewportContainer/ManaDisplay" method="_on_Player_mana_changed"]
 [connection signal="player_dead" from="." to="ViewportContainer" method="_on_Player_player_dead"]

@@ -11,7 +11,9 @@ extents = Vector3( 1, 2, 1 )
 [node name="Plane" parent="." index="0"]
 layers = 2
 
-[node name="Area" type="Area" parent="." index="1" groups=["Interactable"]]
+[node name="Area" type="Area" parent="." index="1" groups=[
+"Interactable",
+]]
 collision_layer = 2
 script = ExtResource( 2 )
 

@@ -15,6 +15,7 @@ __meta__ = {
 avalible_trades_path = NodePath("TradePanel/Panel/AvalibleTrades")
 description_path = NodePath("TradePanel/TradeDetails/RichTextLabel")
 confirmation_path = NodePath("TradePanel/TradeConfirmation")
+error_path = NodePath("TradePanel/NoTrades")
 
 [node name="TradePanel" type="Panel" parent="TradeMenuController"]
 anchor_right = 1.0
@@ -87,6 +88,9 @@ margin_top = 401.345
 margin_right = 1090.12
 margin_bottom = 471.345
 
+[node name="NoTrades" type="AcceptDialog" parent="TradeMenuController/TradePanel"]
+margin_right = 83.0
+margin_bottom = 58.0
 [connection signal="draw" from="TradeMenuController" to="TradeMenuController" method="_on_TradeMenuController_draw"]
 [connection signal="item_activated" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_activated"]
 [connection signal="item_selected" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_selected"]

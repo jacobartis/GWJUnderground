@@ -8,6 +8,7 @@ var need_to_generate: bool = false
 var level: int = 1
 var loaded: bool = true
 var points: int = 0
+var trade_points: int = 0
 
 var player = null
 
