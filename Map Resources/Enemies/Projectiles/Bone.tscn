@@ -9,8 +9,10 @@ extents = Vector3( 0.05, 0.025, 0.15 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.1, 0.1, 0.5 )
 
-[node name="AmmoBase" type="RigidBody"]
+[node name="Bone" type="RigidBody"]
+gravity_scale = 0.0
 script = ExtResource( 1 )
+move_speed = 0.2
 
 [node name="Area" type="Area" parent="."]
 
@@ -23,4 +25,5 @@ shape = SubResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )
 disabled = true
+
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]

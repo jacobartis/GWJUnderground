@@ -7,6 +7,8 @@ enum mouse_lock{
 
 signal health_changed(new_health)
 signal mana_changed(new_mana)
+signal healing_potions(new_healing_potions)
+signal mana_potions(new_mana_potions)
 signal player_dead()
 
 export var health: float = 100.0
@@ -34,8 +36,9 @@ var velocity: Vector3
 var vertical_vector: Vector3
 
 var player_in_control: bool = true
+var webbed: bool = false
 
-var health_potions: int = 0
+var healing_potions: int = 0
 var mana_potions: int = 0
 
 func _input(event):
@@ -45,6 +48,7 @@ func _input(event):
 func _process(_delta):
 	check_health()
 	check_actions()
+	check_potions()
 
 func _physics_process(delta):
 	movement(delta)
@@ -53,6 +57,9 @@ func _physics_process(delta):
 func movement(delta):
 	var movement_direction: Vector3 = Vector3.ZERO
 	var current_speed: float = move_speed
+	
+	if webbed:
+		current_speed = current_speed/2
 	
 	if !player_in_control:
 		return
@@ -175,11 +182,26 @@ func healing():
 	if !Input.is_action_just_pressed("heal"):
 		return
 	
-	if !health_potions > 0:
+	if !healing_potions > 0:
 		return
 	
 	heal(50)
-	health_potions -= 1 
+	healing_potions -= 1 
+
+func appy_webbed(duration):
+	webbed = true
+	var timer = Timer.new()
+	timer.connect("timeout",self,"_on_webbed_timeout") 
+	add_child(timer)
+	timer.set_wait_time(duration)
+	timer.start() 
+
+func _on_webbed_timeout():
+	webbed = false
+
+func check_potions():
+	emit_signal("healing_potions",healing_potions)
+	emit_signal("mana_potions",mana_potions)
 
 #Used for cooldowns
 func get_time():

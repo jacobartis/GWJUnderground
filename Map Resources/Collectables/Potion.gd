@@ -10,7 +10,7 @@ export var type = HEALTH
 func pickup(player):
 	match type:
 		HEALTH:
-			player.health_potions += 1
+			player.healing_potions += 1
 		MANA:
 			player.mana_potions += 1
 

@@ -1,10 +1,31 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
+[ext_resource path="res://Menus/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://Menus/TradeMenu.gd" type="Script" id=2]
 
-[node name="TradeMenu" type="CanvasLayer"]
+[node name="Inventory" type="CanvasLayer"]
 
-[node name="TradeMenuController" type="Control" parent="."]
+[node name="InventoryMenuController" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="InventoryMenuController"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Button" type="Button" parent="InventoryMenuController/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -45.5
+margin_top = -20.5
+margin_right = 45.5
+margin_bottom = 20.5
+
+[node name="TradeMenuController" type="Control" parent="InventoryMenuController"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,7 +38,7 @@ description_path = NodePath("TradePanel/TradeDetails/RichTextLabel")
 confirmation_path = NodePath("TradePanel/TradeConfirmation")
 error_path = NodePath("TradePanel/NoTrades")
 
-[node name="TradePanel" type="Panel" parent="TradeMenuController"]
+[node name="TradePanel" type="Panel" parent="InventoryMenuController/TradeMenuController"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 50.0
@@ -28,7 +49,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TradeDetails" type="Panel" parent="TradeMenuController/TradePanel"]
+[node name="TradeDetails" type="Panel" parent="InventoryMenuController/TradeMenuController/TradePanel"]
 self_modulate = Color( 0.937255, 0.694118, 0.270588, 1 )
 margin_left = 1090.89
 margin_top = 180.448
@@ -38,7 +59,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TradeMenuController/TradePanel/TradeDetails"]
+[node name="RichTextLabel" type="RichTextLabel" parent="InventoryMenuController/TradeMenuController/TradePanel/TradeDetails"]
 margin_left = 13.9333
 margin_top = 101.48
 margin_right = 238.933
@@ -50,7 +71,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="TradeMenuController/TradePanel/TradeDetails"]
+[node name="Label" type="Label" parent="InventoryMenuController/TradeMenuController/TradePanel/TradeDetails"]
 margin_left = 81.9782
 margin_top = 24.3033
 margin_right = 162.978
@@ -58,14 +79,14 @@ margin_bottom = 38.3033
 rect_scale = Vector2( 4, 4 )
 text = "Offer Details"
 
-[node name="Panel" type="Panel" parent="TradeMenuController/TradePanel"]
+[node name="Panel" type="Panel" parent="InventoryMenuController/TradeMenuController/TradePanel"]
 self_modulate = Color( 1, 0.552941, 0.196078, 1 )
 margin_left = 437.0
 margin_top = 170.0
 margin_right = 909.0
 margin_bottom = 825.0
 
-[node name="AvalibleTrades" type="ItemList" parent="TradeMenuController/TradePanel/Panel"]
+[node name="AvalibleTrades" type="ItemList" parent="InventoryMenuController/TradeMenuController/TradePanel/Panel"]
 margin_left = 19.0402
 margin_top = 69.8136
 margin_right = 453.04
@@ -74,7 +95,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="TradeMenuController/TradePanel/Panel"]
+[node name="Label" type="Label" parent="InventoryMenuController/TradeMenuController/TradePanel/Panel"]
 margin_left = 93.6138
 margin_top = 15.8668
 margin_right = 187.614
@@ -82,16 +103,20 @@ margin_bottom = 29.8668
 rect_scale = Vector2( 3, 3 )
 text = "Avalible Offers"
 
-[node name="TradeConfirmation" type="ConfirmationDialog" parent="TradeMenuController/TradePanel"]
+[node name="TradeConfirmation" type="ConfirmationDialog" parent="InventoryMenuController/TradeMenuController/TradePanel"]
 margin_left = 890.12
 margin_top = 401.345
 margin_right = 1090.12
 margin_bottom = 471.345
 
-[node name="NoTrades" type="AcceptDialog" parent="TradeMenuController/TradePanel"]
-margin_right = 83.0
-margin_bottom = 58.0
-[connection signal="draw" from="TradeMenuController" to="TradeMenuController" method="_on_TradeMenuController_draw"]
-[connection signal="item_activated" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_activated"]
-[connection signal="item_selected" from="TradeMenuController/TradePanel/Panel/AvalibleTrades" to="TradeMenuController" method="_on_AvalibleTrades_item_selected"]
-[connection signal="confirmed" from="TradeMenuController/TradePanel/TradeConfirmation" to="TradeMenuController" method="_on_TradeConfirmation_confirmed"]
+[node name="NoTrades" type="AcceptDialog" parent="InventoryMenuController/TradeMenuController/TradePanel"]
+margin_left = 944.0
+margin_top = 406.0
+margin_right = 1027.0
+margin_bottom = 464.0
+
+[connection signal="pressed" from="InventoryMenuController/Panel/Button" to="InventoryMenuController/TradeMenuController" method="_on_Button_pressed"]
+[connection signal="draw" from="InventoryMenuController/TradeMenuController" to="InventoryMenuController/TradeMenuController" method="_on_TradeMenuController_draw"]
+[connection signal="item_activated" from="InventoryMenuController/TradeMenuController/TradePanel/Panel/AvalibleTrades" to="InventoryMenuController/TradeMenuController" method="_on_AvalibleTrades_item_activated"]
+[connection signal="item_selected" from="InventoryMenuController/TradeMenuController/TradePanel/Panel/AvalibleTrades" to="InventoryMenuController/TradeMenuController" method="_on_AvalibleTrades_item_selected"]
+[connection signal="confirmed" from="InventoryMenuController/TradeMenuController/TradePanel/TradeConfirmation" to="InventoryMenuController/TradeMenuController" method="_on_TradeConfirmation_confirmed"]

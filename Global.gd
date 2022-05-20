@@ -26,5 +26,5 @@ var spells = []
 
 #enemy stats based on levels
 func get_enemy_mult():
-	return clamp((float(level)*2.0)/5,1,1000)
+	return clamp((float(level)*2.0)/20,1,1000)
 

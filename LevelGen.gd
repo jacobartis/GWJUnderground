@@ -5,22 +5,23 @@
 extends Spatial
 
 const CELL = preload("res://Map Resources/Rooms/Cell.tscn")
-const CELL_LIGHT_NS = preload("res://Map Resources/Rooms/CellLightNS.tscn")
-const CELL_LIGHT_EW = preload("res://Map Resources/Rooms/CellLightEW.tscn")
 const CELL_EXIT = preload("res://Map Resources/Rooms/CellExit.tscn")
-const CELL_CHEST = preload("res://Map Resources/Rooms/CellChest.tscn")
+const CELL_GOBLIN = preload("res://Map Resources/Rooms/GoblinCell.tscn")
+const CELL_SKELETON = preload("res://Map Resources/Rooms/SkeletonCell.tscn")
+const CELL_SPIDER = preload("res://Map Resources/Rooms/SpiderCell.tscn")
+const CELL_GOLEM = preload("res://Map Resources/Rooms/GolemCell.tscn")
+const CELL_CHEST = preload("res://Map Resources/Rooms/ChestCell.tscn")
 
 export var mapScene: PackedScene
 export var tileSet: TileSet
 export var levelNodePath: NodePath
 export var playerPath: NodePath
 
-onready var roomStylesList: = [CELL,CELL_LIGHT_NS,CELL_LIGHT_EW,CELL_EXIT,CELL_CHEST]
+onready var roomStylesList: = [CELL,CELL_EXIT,CELL_GOBLIN,CELL_SKELETON,CELL_SPIDER,CELL_GOLEM,CELL_CHEST]
 onready var levelNode:Spatial = get_node(levelNodePath)
 onready var player: KinematicBody = get_node(playerPath)
 
 var cells = []
-var start
 
 func _ready():
 	Global.player = player

@@ -9,7 +9,7 @@ onready var health_lable: Label = get_node(health_lable_path)
 
 var health = 100
 
-func _process(delta):
+func _process(_delta):
 	update_hp()
 
 func update_hp():

@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://default_env.tres" type="Environment" id=1]
 [ext_resource path="res://Shaders/PixelateShader.tres" type="Material" id=2]
 [ext_resource path="res://Map Resources/Player/PlayerController.gd" type="Script" id=3]
 [ext_resource path="res://Map Resources/Player/ShaderController.gd" type="Script" id=4]
 [ext_resource path="res://Textures/Light/light.png" type="Texture" id=5]
-[ext_resource path="res://Map Resources/Weapons/MeleeWeapons/Sword.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Map Resources/Weapons/MeleeWeapons/Scimitar.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Textures/GUI/Health/Full Health.png" type="Texture" id=7]
 [ext_resource path="res://Textures/GUI/Health/No Health.png" type="Texture" id=8]
 [ext_resource path="res://Map Resources/Player/HealthDisplay.gd" type="Script" id=9]
@@ -13,13 +13,12 @@
 [ext_resource path="res://Map Resources/Player/ManaDisplay.gd" type="Script" id=11]
 [ext_resource path="res://Textures/GUI/Mana/Mana.png" type="Texture" id=12]
 [ext_resource path="res://Textures/GUI/Mana/No Mana.png" type="Texture" id=13]
+[ext_resource path="res://Map Resources/Player/PotionsDisplay.gd" type="Script" id=14]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
 
-[node name="Player" type="KinematicBody" groups=[
-"Player",
-]]
+[node name="Player" type="KinematicBody" groups=["Player"]]
 script = ExtResource( 3 )
 camera_path = NodePath("ViewportContainer/Viewport/Camera")
 player_path = NodePath(".")
@@ -63,7 +62,7 @@ current = true
 [node name="Hand" type="Spatial" parent="ViewportContainer/Viewport/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.175, -0.25 )
 
-[node name="Sword" parent="ViewportContainer/Viewport/Camera/Hand" instance=ExtResource( 6 )]
+[node name="Scimitar" parent="ViewportContainer/Viewport/Camera/Hand" instance=ExtResource( 6 )]
 
 [node name="Light2D" type="Light2D" parent="ViewportContainer"]
 position = Vector2( 960.348, 539.104 )
@@ -94,9 +93,6 @@ value = 100.0
 texture_under = ExtResource( 8 )
 texture_progress = ExtResource( 7 )
 fill_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HealthLabel" type="Label" parent="ViewportContainer/HealthDisplay"]
 anchor_left = 0.5
@@ -174,7 +170,31 @@ text = "Points: "
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="health_changed" from="." to="ViewportContainer/HealthDisplay" method="_on_Player_health_changed"]
+
+[node name="PotionsDisplay" type="Control" parent="ViewportContainer"]
+margin_left = 1400.0
+margin_right = 1440.0
+margin_bottom = 40.0
+script = ExtResource( 14 )
+healing_label_path = NodePath("HealingLabel")
+mana_label_path = NodePath("ManaLabel")
+
+[node name="HealingLabel" type="Label" parent="ViewportContainer/PotionsDisplay"]
+margin_right = 48.0
+margin_bottom = 14.0
+rect_scale = Vector2( 3, 3 )
+text = "Healing potions:"
+
+[node name="ManaLabel" type="Label" parent="ViewportContainer/PotionsDisplay"]
+margin_top = 40.0
+margin_right = 48.0
+margin_bottom = 54.0
+rect_scale = Vector2( 3, 3 )
+text = "Mana potions:"
+
+[connection signal="healing_potions" from="." to="ViewportContainer/PotionsDisplay" method="_on_Player_healing_potions"]
 [connection signal="health_changed" from="." to="ViewportContainer" method="_on_Player_health_changed"]
+[connection signal="health_changed" from="." to="ViewportContainer/HealthDisplay" method="_on_Player_health_changed"]
 [connection signal="mana_changed" from="." to="ViewportContainer/ManaDisplay" method="_on_Player_mana_changed"]
+[connection signal="mana_potions" from="." to="ViewportContainer/PotionsDisplay" method="_on_Player_mana_potions"]
 [connection signal="player_dead" from="." to="ViewportContainer" method="_on_Player_player_dead"]

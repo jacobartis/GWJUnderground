@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Map Resources/Weapons/MeleeWeapons/MeleeWeaponBase.gd" type="Script" id=1]
+[ext_resource path="res://Models/Weapons/Axe/Axe.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 180, 0 ), Vector3( 90, 180, 0 ), Vector3( -1.91411e-20, 180, -5.00896e-06 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 180, 0 ) ]
+}
+
+[node name="Axe" type="Spatial"]
+script = ExtResource( 1 )
+attack_speed = 1.5
+damage = 10.0
+raycast_path = NodePath("RayCast")
+anim_path = NodePath("AxeModel/AnimationPlayer")
+
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 0, -1 )
+
+[node name="AxeModel" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.15, 0, -1.31134e-08, 0, 0.15, 0, 1.31134e-08, 0, -0.15, 0, 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AxeModel"]
+anims/Attack = SubResource( 1 )
+anims/RESET = SubResource( 2 )

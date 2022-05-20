@@ -3,6 +3,8 @@ extends KinematicBody
 const UP = Vector3.UP
 const DELETE_DELAY = 1
 
+const POTION = preload("res://Map Resources/collectables/HealthPotion.tscn")
+
 enum{
 	IDLE,
 	CHASING,
@@ -36,26 +38,33 @@ onready var damage: int = base_damage * multiplier
 onready var health: int = base_health * multiplier
 onready var points: int = base_points * multiplier
 
+var rand = RandomNumberGenerator.new()
+
 var target: Node
 var last_attack: float = 0.0
 var death_time: float
 
 func _process(_delta):
-	state_handler()
 	check_health()
+	state_handler()
+
 
 func state_handler():
 	match state:
 		IDLE:
 			pass
 		CHASING:
-			
 			chase()
 		ATTACKING:
 			attack()
 
 #Handles chasing after the player
 func chase():
+	
+	if !target && state != DEAD:
+		state = IDLE
+		return
+	
 	eyes.look_at(target.global_transform.origin*Vector3(1,0,1), Vector3.UP)
 	rotate_y(deg2rad(eyes.rotation.y*20))
 	
@@ -69,14 +78,22 @@ func attack():
 	if get_time()-last_attack < attack_cooldown:
 		return 
 	
+	#Sets the last attack to now and resets the animation
+	if anim.get_animation() != "Attack" || anim.get_frame()==0:
+		anim.set_frame(0)
+		anim.play("Attack")
+	
+	if !anim.get_frame() == anim.get_sprite_frames().get_frame_count("Attack")-1:
+		return
+	
 	last_attack = get_time()
 	anim.set_frame(0)
-	anim.play("Attack")
+	
 	target.take_damage(damage)
 
 func check_health():
 	
-	if !health == 0:
+	if health > 0:
 		return
 	
 	if !state == DEAD:
@@ -86,17 +103,21 @@ func check_health():
 		Global.points += points
 	
 	state = DEAD
-	
-	
 	if !anim.get_frame() == anim.get_sprite_frames().get_frame_count("Death")-1:
 		return
 	
-	
-	
 	if get_time()-death_time < DELETE_DELAY:
 		return
-	
+	spawn_potion()
 	queue_free()
+
+func spawn_potion():
+	var potion = POTION.instance()
+	rand.randomize()
+	if !rand.randi_range(0,100)>10:
+		print(2)
+		get_tree().root.get_child(2).add_child(potion)#
+		potion.global_transform = global_transform
 
 #Checks when the player enters the detection area
 func _on_DetectionController_body_entered(body):

@@ -7,29 +7,87 @@ var avalibleRooms = []
 var currentRooms = []
 var furthest =[0,0]
 
+var enemy_count = 0
+var max_enemies = 0
+
 #Randomly generates the level for the set number or rooms
 func generate(rooms):
 	#Clears current map
 	clear()
 	#Sets the initial cell at 0,0 and updates avalible rooms
-	set_cell(0,0,1)
+	start_area()
 	currentRooms.append([0,0])
 	updateAvalible()
+	
+	max_enemies = rooms/4
+	enemy_count = 0
 	
 	#Iterates for the required number of rooms
 	for _x in range(rooms):
 		rand.randomize()
 		
 		#Sets the next type of tile
-		var tileId: int = 1
+		var tileId = get_enemy(Global.level)
 		
 		#Adds a room to a random position in avalible rooms
 		addRoom(avalibleRooms[rand.randi_range(0,avalibleRooms.size()-1)][0],tileId)
 		#Updates avalible rooms
 		updateAvalible()
 	
+	
 	#Finaly adds the exit at potentialy furthest spot
-	addRoom(avalibleRooms[avalibleRooms.find(furthest,0)][0],4)
+	addRoom(avalibleRooms[avalibleRooms.find(furthest,0)][0],2)
+	updateAvalible()
+	#Adds chests
+	addRoom(avalibleRooms[rand.randi_range(0,avalibleRooms.size()-1)][0],get_chest())
+	updateAvalible()
+
+func start_area():
+	set_cell(0,0,1)
+	currentRooms.append([0,0])
+	set_cell(1,0,1)
+	currentRooms.append([1,0])
+	set_cell(-1,0,1)
+	currentRooms.append([-1,0])
+	set_cell(0,1,1)
+	currentRooms.append([0,1])
+	set_cell(0,-1,1)
+	currentRooms.append([0,-1])
+	set_cell(1,1,1)
+	currentRooms.append([1,1])
+	set_cell(1,-1,1)
+	currentRooms.append([1,-1])
+	set_cell(-1,1,1)
+	currentRooms.append([-1,1])
+	set_cell(-1,-1,1)
+	currentRooms.append([-1,-1])
+
+#roomStylesList = CELL, CELL_EXIT, CELL_GOBLIN, CELL_SKELETON, CELL_SPIDER, CELL_GOLEM, CELL_CHEST
+func get_enemy(level):
+	var type = 1
+	var spawn = rand.randi_range(0,100)
+	
+	if enemy_count == max_enemies:
+		return type
+	
+	enemy_count += 1
+	
+	if !spawn>50:
+		type = 3
+	if !spawn>30 && !level < 5:
+		type = 4
+	if !spawn>20 && !level < 10:
+		type = 5
+	if !spawn>10 && !level < 15:
+		type = 6
+	
+	return type
+
+func get_chest():
+	var spawn = rand.randi_range(0,100)
+	if !spawn<50:
+		return 7
+	return 1
 
 #Adds a room to the generation map and adds that room to current rooms
 func addRoom(currentRoom, tileId):

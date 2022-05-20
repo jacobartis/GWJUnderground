@@ -34,7 +34,7 @@ export var error_path: NodePath
 onready var description: RichTextLabel = get_node(description_path)
 onready var avalible_trades: ItemList = get_node(avalible_trades_path)
 onready var trade_confirmation: ConfirmationDialog = get_node(confirmation_path)
-onready var trade_error: ConfirmationDialog = get_node(error_path)
+onready var trade_error: AcceptDialog = get_node(error_path)
 
 var trades_index = null
 var avalible_trades_index = null
@@ -44,7 +44,7 @@ var avalible_trades_index = null
 #DAMAGE = 0, DAMAGE_MULTI = 1, HEALTH = 2, ARMOUR = 3, SIGHT = 4, LIFE_ON_HIT = 5, SPELLS = 6, 
 #FILTERS = 7,HEALING = 8,MANA = 9
 #Healing doubles as a flat health cost, Can only set player to 1 hp
-var trades = [[false,"Name1","Damage for health",5,0,5,2,20],[false,"Name2","Damage multi for sight",5,1,1.5,4,3],
+var trades = [[false,"Name1","Damage for health",1,0,5,2,20],[false,"Name2","Damage multi for sight",5,1,1.5,4,3],
 [false,"Name3","Health for Damage multi",5,2,50,1,.25],[false,"Name4","Healing for damage",5,8,100,0,3],
 [false,"Name5","Large Damage for low hp",10,0,100,2,Global.max_health-1]]
 
@@ -126,9 +126,9 @@ func _on_AvalibleTrades_item_selected(index):
 #Checks if an item was double clicked and shows a confirmation box
 func _on_AvalibleTrades_item_activated(_index):
 	if Global.trade_points > 0:
-		trade_confirmation.show()
+		trade_confirmation.popup_centered()
 	else:
-		trade_error.show()
+		trade_error.popup_centered()
 
 #Applys the confirmed trade
 func _on_TradeConfirmation_confirmed():
@@ -137,3 +137,7 @@ func _on_TradeConfirmation_confirmed():
 
 func _on_TradeMenuController_draw():
 	update()
+
+
+func _on_Button_pressed():
+	pass # Replace with function body.
